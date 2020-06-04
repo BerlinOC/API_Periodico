@@ -18,6 +18,7 @@ from django.urls import path, include
 from rest_framework import routers
 from models.views import postView,categoryView,postcategoryView, postcategoryView, imagenesView,portadaView,politicaView,policialView,deportesView,entretenimientoView,viajesView
 from django.conf import settings 
+from django.conf.urls.static import static
 
 router = routers.DefaultRouter()
 router.register('post', postView, basename='post')
@@ -33,8 +34,4 @@ router.register('posts/(?P<username>.+)', postcategoryView, basename='MyModel')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('' ,include(router.urls)),
-]
-
-if settings.DEBUG :
-    from django.conf.urls.static import static
-    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
